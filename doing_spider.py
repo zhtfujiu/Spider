@@ -75,18 +75,12 @@ class Doing_Spider(object):
                         # 自定爬取数目
                         if count == num:
                             print num, '条数据已爬取完成'
-                            # self.parent.status_text.AppendText(num)
-                            # self.parent.status_text.Update()
-                            # self.parent.status_text.AppendText(u'条数据已爬取完成')
-                            # self.parent.status_text.Update()
                             break
                         count = count + 1
                     except:
                         print '本条爬取失败'
                         self.parent.status_text.AppendText(u'本条爬取失败')
                         self.parent.status_text.Update()
-
-
 
                 try:
                     self.outputer.output_mysql()
