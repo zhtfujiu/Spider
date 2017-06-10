@@ -19,6 +19,17 @@ class Doing_Spider(object):
         self.status_text = status_text
 
         self.urls = url_manager.UrlManager()
+
+        # =========准备多线程  3个线程  3个URL管理器  3个downloader  ========
+        self.urls_1 = url_manager.UrlManager()
+        self.urls_2 = url_manager.UrlManager()
+        self.urls_3 = url_manager.UrlManager()
+
+        self.downloader_1 = html_downloader.HtmlDownloader()
+        self.downloader_2 = html_downloader.HtmlDownloader()
+        self.downloader_3 = html_downloader.HtmlDownloader()
+
+
         self.downloader = html_downloader.HtmlDownloader()
         self.outputer = html_outputer.HtmlOutputer()
         self.parser = html_parser.HtmlParser()
@@ -52,6 +63,9 @@ class Doing_Spider(object):
                 num = int(num)  #转变为int整型
                 count = 1  # 变量count记录当前爬取的是第几个URL
 
+
+                # =============这一片段内是爬取过程，等会拆分为一个线程操作 =========
+
                 self.urls.add_new_url(driver.current_url)  # 添加根URL
 
                 while self.urls.has_new_url():  # 爬虫的循环
@@ -59,11 +73,8 @@ class Doing_Spider(object):
                     try:
                         new_url = self.urls.get_new_url()  # 获取一个待爬取的URL，添加进URL管理器
                         now_text =  u'%s : %s' % (count,new_url)
-                        # now_text =  count + new_url
                         print now_text
                         # 把现在的信息添加在展示栏
-                        # self.parent.status_text.AppendText(count)
-                        # self.parent.status_text.Update()
                         self.parent.status_text.AppendText(now_text+"\n")
                         self.parent.status_text.Update()
 
@@ -81,6 +92,16 @@ class Doing_Spider(object):
                         print '本条爬取失败'
                         self.parent.status_text.AppendText(u'本条爬取失败')
                         self.parent.status_text.Update()
+
+                # ==========上面这一片段内是爬取过程，等会拆分为一个线程操作 ==========
+
+                # ========== 存储之前要把三个URL管理器的合并进一个总的URL管理器 =======
+
+
+
+
+                # ========== 存储之前要把三个URL管理器的合并进一个总的URL管理器 =======
+
 
                 try:
                     self.outputer.output_mysql()

@@ -1,5 +1,6 @@
 # coding=UTF-8
 import wx
+from threading import Thread
 
 from doing_spider import Doing_Spider
 
@@ -76,6 +77,19 @@ class GUI_SPIDER(wx.Frame):
 
     def startSpider(self, event):
         # 启动爬虫
+        # entry = self.entry_blank.GetLineText(0)
+        # num = self.num_blank.GetLineText(0)
+        #
+        # doing_spider = Doing_Spider(self, self.parent.driver, entry, num, self.status_text)
+        # doing_spider.crawl()
+        t = Thread(None, target=self.thread_spider, name='StartSpider')
+        t.start()
+
+        event.Skip()
+
+
+    def thread_spider(self):
+        self.status_text.Clear()
         entry = self.entry_blank.GetLineText(0)
         num = self.num_blank.GetLineText(0)
 
