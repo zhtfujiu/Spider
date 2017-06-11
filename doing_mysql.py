@@ -128,32 +128,46 @@ class Doing_mysql(object):
 
     # 获取预览信息（Data界面第一个功能需要）
     def do_DIYsql2grid(self, sql, grid):
-        try:
-            self.cur.execute(sql)
-            # 重置游标位置
-            self.cur.scroll(0, mode='absolute')
-            results = self.cur.fetchall()
 
-            # 获取MYSQL里面的数据字段名称
-            fields = self.cur.description
+        first_word = sql.split(' ')[0].lower()
 
-            # 写上字段信息
-            for field in range(0, len(fields)):
-                grid.SetCellValue(0, field, fields[field][0])
 
-            if len(results) > 100:
-                grid.AppendRows(len(results)-100)
-                grid.Update()
+        if first_word == 'select':
+            try:
+                self.cur.execute(sql)
 
-            # 获取并写入数据段信息
-            for row in range(1, len(results) + 1):
-                for col in range(0, len(fields)):
-                    grid.SetCellValue(row, col, u'%s' % results[row - 1][col])
+                # 重置游标位置
+                self.cur.scroll(0, mode='absolute')
+                results = self.cur.fetchall()
 
-            return True
-        except Exception, e:
-            print 'SQL语句执行失败', e
-            return False
+                # 获取MYSQL里面的数据字段名称
+                fields = self.cur.description
+
+                # 写上字段信息
+                for field in range(0, len(fields)):
+                    grid.SetCellValue(0, field, fields[field][0])
+
+                if len(results) > 100:
+                    grid.AppendRows(len(results) - 80)
+                    grid.Update()
+
+                # 获取并写入数据段信息
+                for row in range(1, len(results) + 1):
+                    for col in range(0, len(fields)):
+                        grid.SetCellValue(row, col, u'%s' % results[row - 1][col])
+
+                return True
+            except Exception, e:
+                print 'SQL语句执行失败', e
+                return False
+        else:
+            try:
+                self.cur.execute(sql)
+                return True
+            except Exception,e:
+                print '更新操作的SQL执行失败',e
+                return False
+
 
     # 关闭数据库连接
     def do_end_sql(self):

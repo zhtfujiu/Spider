@@ -124,5 +124,5 @@ class Doing_Spider(object):
                 dlg = wx.MessageDialog(None, entry.encode('utf-8') + '词条不存在', '词条不存在', wx.OK)
                 if dlg.ShowModal() == wx.ID_OK:
                     dlg.Destroy()
-                    return
+                break
                 print '您输入的词条不存在，请重新输入'
