@@ -24,7 +24,7 @@ class HtmlOutputer(object):
             for data2 in self.datas:
                 doing_mysql.do_add_entrydata(data, data2['title'], data2['url'],
                                              data2['summary'].replace("\n", ""))
-            dlg = wx.MessageDialog(None, '词条信息爬取完毕，并保存至数据库'+data.encode("utf-8")+'数据表中。', '爬取成功！', wx.OK)
+            dlg = wx.MessageDialog(None, '词条信息爬取完毕，并保存至数据库  '+data.encode("utf-8")+'  数据表中。', '爬取成功！', wx.OK)
             if dlg.ShowModal() == wx.ID_OK:
                 dlg.Destroy()
         except Exception,e:

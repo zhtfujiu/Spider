@@ -112,7 +112,7 @@ class Doing_mysql(object):
                 grid.SetCellValue(0, field, fields[field][0])
 
             if len(results) > 100:
-                grid.AppendRows(len(results)-100)
+                grid.AppendRows(len(results)-80)
                 grid.Update()
 
             # 获取并写入数据段信息

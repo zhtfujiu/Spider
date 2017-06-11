@@ -72,11 +72,11 @@ class Doing_Spider(object):
                     try:
                         new_url = self.urls.get_new_url()  # 获取一个待爬取的URL，添加进URL管理器
                         now_text =  u'%s : %s' % (count,new_url)
+                        now_num = u'正在爬取第 %s 条数据： %s' % (count, new_url)
                         print now_text
                         # 把现在的信息添加在展示栏
-                        self.parent.status_text.AppendText(now_text+"\n")
-                        self.parent.status_text.ShowPosition(self.parent.status_text.GetLastPosition())
-                        # self.parent.status_text.Update()
+                        # self.parent.status_text.AppendText(now_text+"\n")
+                        self.parent.status_text.SetLabel(now_num)
                         self.parent.status_text.Refresh()
 
                         html_content = self.downloader.download(new_url)  # 启动下载器，存储进html_content里
@@ -107,7 +107,7 @@ class Doing_Spider(object):
                 try:
                     self.outputer.output_mysql()
                     print '数据已存储至数据库'
-                    self.parent.status_text.AppendText(u'数据已存储至数据库')
+                    self.parent.status_text.AppendText(u'\n数据已存储至数据库')
                     self.parent.status_text.Refresh()
 
                     # dlg = wx.MessageDialog(None, '词条信息爬取完毕，并保存至数据库相应的数据表中。', '爬取成功！', wx.OK)
@@ -116,7 +116,7 @@ class Doing_Spider(object):
 
                 except Exception, e:
                     print '存储过程错误：', e
-                    self.parent.status_text.AppendText(u'存储过程错误')
+                    self.parent.status_text.AppendText(u'\n存储过程错误')
                     self.parent.status_text.Refresh()
                 break
             else:
