@@ -48,6 +48,7 @@ class GUI_SPIDER(wx.Frame):
 
         # ================ 2号区域，直接放Text展示框，爬虫状态提示===========
         self.status_text = wx.TextCtrl(panel, style=wx.TE_READONLY)  # 只读模式 |
+        # self.status_text.AlwaysShowScrollbars(True, True)
         self.boxsizer.Add(self.status_text, proportion=1, flag=wx.EXPAND | wx.LEFT | wx.RIGHT | wx.TOP | wx.BOTTOM, border=10)
 
 
@@ -90,6 +91,8 @@ class GUI_SPIDER(wx.Frame):
 
     def thread_spider(self):
         self.status_text.Clear()
+        # self.status_text.AlwaysShowScrollbars(True, True)#.Refresh()
+
         entry = self.entry_blank.GetLineText(0)
         num = self.num_blank.GetLineText(0)
 

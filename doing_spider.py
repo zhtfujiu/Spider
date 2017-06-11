@@ -76,7 +76,9 @@ class Doing_Spider(object):
                         print now_text
                         # 把现在的信息添加在展示栏
                         self.parent.status_text.AppendText(now_text+"\n")
-                        self.parent.status_text.Update()
+                        self.parent.status_text.ShowPosition(self.parent.status_text.GetLastPosition())
+                        # self.parent.status_text.Update()
+                        self.parent.status_text.Refresh()
 
                         html_content = self.downloader.download(new_url)  # 启动下载器，存储进html_content里
                         new_urls, new_data = self.parser.parse(new_url, html_content)  # 解析器对该URL的内容进行解析，分离出新的URL和数据
@@ -107,16 +109,16 @@ class Doing_Spider(object):
                     self.outputer.output_mysql()
                     print '数据已存储至数据库'
                     self.parent.status_text.AppendText(u'数据已存储至数据库')
-                    self.parent.status_text.Update()
+                    self.parent.status_text.Refresh()
 
-                    dlg = wx.MessageDialog(None, '词条信息爬取完毕，并保存至数据库相应的数据表中。', '爬取成功！', wx.OK)
-                    if dlg.ShowModal() == wx.ID_OK:
-                        dlg.Destroy()
+                    # dlg = wx.MessageDialog(None, '词条信息爬取完毕，并保存至数据库相应的数据表中。', '爬取成功！', wx.OK)
+                    # if dlg.ShowModal() == wx.ID_OK:
+                    #     dlg.Destroy()
 
                 except Exception, e:
                     print '存储过程错误：', e
                     self.parent.status_text.AppendText(u'存储过程错误')
-                    self.parent.status_text.Update()
+                    self.parent.status_text.Refresh()
                 break
             else:
                 dlg = wx.MessageDialog(None, entry.encode('utf-8') + '词条不存在', '词条不存在', wx.OK)
