@@ -38,7 +38,7 @@ class Doing_Spider(object):
         driver = self.driver
 
         self.parent.status_text.SetLabel('')
-        self.parent.status_text.Update()
+        self.parent.status_text.Refresh()
 
         spider_url = 'https://baike.baidu.com/'
 
@@ -57,9 +57,7 @@ class Doing_Spider(object):
                 # 搜索有结果,进行下一步爬取工作
 
                 num = self.num
-
                 print entry, num
-
                 num = int(num)  #转变为int整型
                 count = 1  # 变量count记录当前爬取的是第几个URL
 
@@ -92,8 +90,8 @@ class Doing_Spider(object):
                         count = count + 1
                     except:
                         print '本条爬取失败'
-                        self.parent.status_text.AppendText(u'本条爬取失败')
-                        self.parent.status_text.Update()
+                        self.parent.status_text.AppendText(u'本条爬取失败\n')
+                        self.parent.status_text.Refresh()
 
                 # ==========上面这一片段内是爬取过程，等会拆分为一个线程操作 ==========
 
