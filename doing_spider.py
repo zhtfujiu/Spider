@@ -19,6 +19,7 @@ class Doing_Spider(object):
         self.status_text = status_text
 
         self.urls = url_manager.UrlManager()
+        self.fielt_urls = set()
 
         # =========准备多线程  3个线程  3个URL管理器  3个downloader  ========
         self.urls_1 = url_manager.UrlManager()

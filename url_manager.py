@@ -1,17 +1,21 @@
 # coding=UTF-8
 # URL 管理器
+
+
+import Queue
+
 class UrlManager(object):
 
     def __init__(self):
-        self.new_urls = set()
-        self.old_urls = set()
+        self.new_urls = Queue.Queue()
+        self.old_urls = Queue.Queue()
 
     def add_new_url(self, new_url):
         if new_url is None: # 如果是空，直接退出
             print 'add_new_url  new_url为空'
             return
-        if new_url not in self.new_urls and new_url not in self.old_urls: # 既不在旧的也不在新的，可添加
-            self.new_urls.add(new_url)
+        # if new_url not in self.new_urls and new_url not in self.old_urls: # 既不在旧的也不在新的，可添加
+        self.new_urls.put(new_url)
 
 
     def add_new_urls(self, new_urls):
@@ -24,9 +28,9 @@ class UrlManager(object):
         # print 'new_url添加完毕'
 
     def get_new_url(self): #获取顶部的URL
-        new_url = self.new_urls.pop() # pop会弹出，导致原urls里少一个
-        self.old_urls.add(new_url) # 添加进old里
+        new_url = self.new_urls.get() # pop会弹出，导致原urls里少一个
+        self.old_urls.put(new_url) # 添加进old里
         return new_url
 
     def has_new_url(self):
-        return len(self.new_urls) != 0 # 如果待爬取列表不为0，则证明有有待爬取的
+        return not self.new_urls.empty() # 如果待爬取列表不为0，则证明有有待爬取的
