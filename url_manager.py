@@ -20,11 +20,12 @@ class UrlManager(object):
 
     def add_new_urls(self, new_urls):
         # print '原有的URL数量为：', len(self.new_urls)
-        if new_urls is None or len(new_urls) == 0 : # 判断是否为空，是否长度为0
+        if new_urls is None or new_urls.empty() : # 判断是否为空，是否长度为0
             print 'add_new_urls  new_urls为空'
             return
-        for new_url in new_urls: # 调用上一个单个添加的方法来做
-            self.add_new_url(new_url)
+        # for new_url in new_urls: # 调用上一个单个添加的方法来做
+        while not new_urls.empty():
+            self.add_new_url(new_urls.get())
         # print 'new_url添加完毕'
 
     def get_new_url(self): #获取顶部的URL

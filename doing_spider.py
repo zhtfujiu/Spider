@@ -78,7 +78,7 @@ class Doing_Spider(object):
                         count = count + 1
                     except:
                         print '本条爬取失败'
-                        self.parent.status_text.SetLabel(u'本条爬取失败\n')
+                        self.parent.status_text.AppendText(u'本条爬取失败\n')
                         self.parent.status_text.Refresh()
 
 

@@ -3,18 +3,18 @@
 # http://baike.baidu.com/item/Python
 
 from bs4 import BeautifulSoup
-import re
+import re,Queue
 
 class HtmlParser(object):
 
     def get_new_urls(self, new_url, soup):
-        new_urls = set() # 集合
+        new_urls = Queue.Queue() # 集合
         # 格式是 /item/***
         links = soup.find_all('a', href=re.compile(r'/item/'))
         for link in links:
             url = 'http://baike.baidu.com' + link['href']
             # # url = urlparse.urlparse(new_url, url) # 按照new_url的格式对URL进行拼接 # 这行出了问题！！！
-            new_urls.add(url)
+            new_urls.put(url)
         return new_urls
 
 

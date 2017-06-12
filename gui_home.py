@@ -25,7 +25,7 @@ class GUI_HOME(wx.Frame):
         hbox3 = wx.BoxSizer(wx.VERTICAL)
 
         btn1 = wx.Button(panel, label='登录并爬取个人百科信息')
-        hbox3.Add(btn1, proportion=1, flag=wx.EXPAND)
+        hbox3.Add(btn1, proportion=1,  flag=wx.EXPAND)
         btn2 = wx.Button(panel, label='设定根词条并爬取')
         hbox3.Add(btn2, proportion=1, flag=wx.EXPAND)
         btn3 = wx.Button(panel, label='数据分析系统')
